@@ -1,7 +1,11 @@
 from flask import *
+from blueprints import api_bp
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+# blue
+app.register_blueprint(api_bp)
 
 # Pages
 
