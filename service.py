@@ -20,8 +20,13 @@ class AttractionService:
         nextPage = res[0]
         # print(nextPage)
         data = []
+        # 僅拿12筆資料
+        i = 0
         for attraction in res[1]:
+            if i == 12:
+                break
             data.append(attraction.__dict__)
+            i += 1
         # print({
         #     'nextPage': nextPage,
         #     'data': data
