@@ -1,7 +1,11 @@
 from flask import *
+from blueprints import api_bp
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+# blue
+app.register_blueprint(api_bp)
 
 # Pages
 
@@ -27,4 +31,4 @@ def thankyou():
 
 
 if __name__ == '__main__':
-    app.run(port=3000)
+    app.run(host='0.0.0.0', port=3000)
