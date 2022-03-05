@@ -1,4 +1,4 @@
-from dao import AttractionDao
+from dao.attractionDao import AttractionDao
 from entity import Attraction
 
 

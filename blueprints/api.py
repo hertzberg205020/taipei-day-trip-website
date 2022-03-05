@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from service import AttractionService
+from service.attractionService import AttractionService
 
 bp = Blueprint("api", __name__, url_prefix='/api')
 
