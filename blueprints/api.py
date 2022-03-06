@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from service import AttractionService
+from service.attractionService import AttractionService
 
 bp = Blueprint("api", __name__, url_prefix='/api')
 
@@ -26,7 +26,8 @@ def get_attractions():
 def get_attraction_by_id(attractionId):
     ret = None
     try:
-        ret = attractionService.get_attraction_by_id(attractionId)
+        # ret = attractionService.get_attraction_by_id(attractionId)
+        ret = attractionService.get_attraction_by_id_with_images(attractionId)
     except Exception as e:
         print(e)
         ret = {
