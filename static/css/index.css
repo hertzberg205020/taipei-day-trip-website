@@ -76,7 +76,7 @@ ul {
   position: relative;
 }
 .main_header > .inner {
-  width: 62.5%;
+  width: 1180px; /* 與slogan切齊 */
   margin: auto;
 }
 #desc1 {
@@ -202,6 +202,9 @@ footer {
     background-size: contain;
     resize: both;
     background-position: bottom 0px rightright 11.72vw; /* 需要微調 */
+  }
+  .main_header > .inner {
+    padding: 0px 20px;
   }
   #boxes_container {
     margin: auto;
