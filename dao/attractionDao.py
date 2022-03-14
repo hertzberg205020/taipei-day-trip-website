@@ -84,23 +84,24 @@ class AttractionDao:
         """每頁12筆資料，多取一筆判斷是否還有下一頁"""
         next_page = page + 1
         attraction_lst = []
+        page_size = 12
 
         with self.__util as cursor:
             if not keyword:
                 sql = """
                 select * from attractions
-                limit %s, 13
+                limit %s, %s
                 """
-                cursor.execute(sql, (page*12,))
+                cursor.execute(sql, (page*page_size, page_size+1))
 
             else:
                 sql = """
                 select * from attractions
                 where name REGEXP CONCAT(%s, '')
-                limit %s, 13
+                limit %s, %s
                 """
 
-                cursor.execute(sql, (keyword, page*12))
+                cursor.execute(sql, (keyword, page*page_size, page_size+1))
 
             while True:
                 res = cursor.fetchone()
@@ -117,29 +118,30 @@ class AttractionDao:
             return next_page, attraction_lst
 
     def get_attractions_info_with_images(self, page, keyword='') -> tuple[int, list]:
-        """取得景點訊息，每頁12筆資料，多取一筆判斷是否還有下一頁"""
+        """取得景點訊息，每頁page_size筆資料，多取一筆判斷是否還有下一頁"""
         next_page = page + 1
         attraction_lst = []
+        page_size = 12
 
         with self.__util as cursor:
             if not keyword:
                 sql = """
                         SELECT attr.*, images.url
                         FROM attractions_images AS images
-                        JOIN (SELECT * FROM attractions LIMIT %s, 13) AS attr
+                        JOIN (SELECT * FROM attractions LIMIT %s, %s) AS attr
                         ON images.`attractions_name` = attr.`name`;
                         """
-                cursor.execute(sql, (page*12,))
+                cursor.execute(sql, (page*page_size, page_size+1))
 
             else:
                 sql = """
                         SELECT attr.*, images.url
                         FROM attractions_images AS images
                         JOIN (SELECT * FROM attractions WHERE `name` 
-                              REGEXP CONCAT(%s, '') LIMIT %s, 13) AS attr
+                              REGEXP CONCAT(%s, '') LIMIT %s, %s) AS attr
                         ON images.`attractions_name` = attr.`name`;
                         """
-                cursor.execute(sql, (keyword, page*12))
+                cursor.execute(sql, (keyword, page*page_size, page_size+1))
 
             while True:
                 res = cursor.fetchone()
